@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data.Common;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -13,16 +14,17 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
     public class CustomersViewModel : ViewModelBase
     {
         private readonly ICustomerDataProvider _customerDataProvider;
-        private Customer? _selectedCustomer;
+        private CustomerItemViewModel? _selectedCustomer;
+        private NavigationSide _navigationSide;
 
         public CustomersViewModel(ICustomerDataProvider customerDataProvider)
         {
             _customerDataProvider = customerDataProvider;
         }
 
-        public ObservableCollection<Customer> Customers { get; } = new();
+        public ObservableCollection<CustomerItemViewModel> Customers { get; } = new();
 
-        public Customer? SelectedCustomer 
+        public CustomerItemViewModel? SelectedCustomer 
         { 
             get => _selectedCustomer;
             set 
@@ -30,6 +32,16 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
                 _selectedCustomer = value;
                 //RaisePropertyChanged(nameof(SelectedCustomer));
                 // because of CallerMemberName attribute, propertyName is passed with SelectedCustomer name
+                RaisePropertyChanged();
+            }
+        }
+
+        public NavigationSide NavigationSide
+        { 
+            get => _navigationSide; 
+            private set
+            {
+                _navigationSide = value;
                 RaisePropertyChanged();
             }
         }
@@ -46,7 +58,7 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
             {
                 foreach (var customer in customers)
                 {
-                    Customers.Add(customer);
+                    Customers.Add(new CustomerItemViewModel(customer));
                 }
             }
         }
@@ -54,9 +66,22 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
         internal void Add()
         {
             var customer = new Customer { FirstName = "New" };
-            Customers.Add(customer);
-            SelectedCustomer = customer;
+            var viewModel = new CustomerItemViewModel(customer);
+            Customers.Add(viewModel);
+            SelectedCustomer = viewModel;
         }
-        
+
+        internal void MoveNavigation()
+        {
+            NavigationSide = NavigationSide == NavigationSide.Left
+                ? NavigationSide.Right
+                : NavigationSide.Left;
+        }
+    }
+
+    public enum NavigationSide
+    {
+        Left,
+        Right
     }
 }

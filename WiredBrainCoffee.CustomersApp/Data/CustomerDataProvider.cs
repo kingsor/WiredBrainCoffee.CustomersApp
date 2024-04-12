@@ -11,7 +11,7 @@ namespace WiredBrainCoffee.CustomersApp.Data
     {
         public async Task<IEnumerable<Customer>?> GetAllAsync()
         {
-            await Task.Delay(1000);
+            await Task.Delay(100);
 
             return new List<Customer>
             {
