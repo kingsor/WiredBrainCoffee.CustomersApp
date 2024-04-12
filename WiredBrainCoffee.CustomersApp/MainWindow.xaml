@@ -1,0 +1,108 @@
+﻿<Window x:Class="WiredBrainCoffee.CustomersApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WiredBrainCoffee.CustomersApp"
+        xmlns:controls="clr-namespace:WiredBrainCoffee.CustomersApp.Controls"
+        xmlns:views="clr-namespace:WiredBrainCoffee.CustomersApp.Views"
+        mc:Ignorable="d"
+        Title="Customers App" Height="500" Width="800" FontSize="20">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Main menu -->
+        <Menu Grid.Row="0" FontSize="20" >
+            <MenuItem Header="_View">
+                <MenuItem Header="_Customers"/>
+                <MenuItem Header="_Products"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Header -->
+        <controls:HeaderControl Grid.Row="1"/>
+
+        <!-- Customers View -->
+        <views:CustomersView Grid.Row="2"/>
+
+        <!-- Statusbar -->
+        <StatusBar Grid.Row="3">
+            <StatusBarItem FontSize="20" Content=" (c) Wired Brain Coffee"/>
+        </StatusBar>
+
+    </Grid>
+
+    <!--<Grid>-->
+    <!-- Working with Elements and Attributes -->
+    <!-- Attribute Syntax -->
+    <!--<Button Content="Add Customer"
+                x:Name="btnAddCustomer"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="10"
+                Click="ButtonAddCustomer_Click"/>-->
+
+    <!-- Property Element Syntax -->
+    <!--
+        <Button x:Name="btnAddCustomer"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Margin="10"
+            Click="ButtonAddCustomer_Click">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Images/add.png" Height="18" Margin="0 0 5 0"/>
+                    <TextBlock Text="Add" Margin="0 0 5 0"/>
+                    <TextBlock Text="Something"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        -->
+
+    <!-- Content Syntax -->
+    <!--
+        <Grid.Children>
+            <Button x:Name="btnAddCustomer"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="10"
+                Click="ButtonAddCustomer_Click">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel.Children>
+                            <Image Source="/Images/add.png" Height="18" Margin="0 0 5 0" />
+                            <TextBlock Text="Add" />
+                        </StackPanel.Children>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </Grid.Children>
+        -->
+
+    <!--<Button x:Name="btnAddCustomer"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="10"
+                Click="ButtonAddCustomer_Click">
+            <StackPanel Orientation="Horizontal">
+                -->
+    <!-- 
+                In questo caso sto utilizzando la Content Syntax - quello dentro a StackPanel viene assegnato alla proprietà Content
+                e sto anche utilizzando la Collection Syntax - i due elementi (Image e TextBlock) sono aggiunti alla collection Children
+                quindi non è necessario scrivere esplicitamente Button.Content e StackPanel.Children
+                ogni altra proprietà va invece esplicitamente dichiarata tramite
+                Attribute Syntax oppure Property Syntax
+                -->
+    <!--
+                <Image Source="/Images/add.png" Height="18" Margin="0 0 5 0" />
+                <TextBlock Text="Add" />
+            </StackPanel>
+        </Button>-->
+    <!--</Grid>-->
+</Window>
