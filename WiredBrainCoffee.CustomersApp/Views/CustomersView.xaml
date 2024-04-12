@@ -7,10 +7,6 @@
              xmlns:converters="clr-namespace:WiredBrainCoffee.CustomersApp.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <converters:NavigationSideToGridColumnConverter
-            x:Key="NavigationSideToGridColumnConv"/>
-    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -44,7 +40,7 @@
         </Grid>
 
         <!-- Customer detail -->
-        <StackPanel Grid.Column="1" Margin="10">
+        <StackPanel Grid.Column="1" Margin="10" Visibility="{Binding IsCustomerSelected,Converter={StaticResource BooleanToVisibilityConv}}">
             <Label>Firstname:</Label>
             <TextBox Text="{Binding Path=SelectedCustomer.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label>Lastname:</Label>
