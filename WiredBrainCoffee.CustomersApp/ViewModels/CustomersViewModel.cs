@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Documents.DocumentStructures;
+using WiredBrainCoffee.CustomersApp.Commands;
 using WiredBrainCoffee.CustomersApp.Data;
 using WiredBrainCoffee.CustomersApp.Models;
 
@@ -20,6 +21,9 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
         public CustomersViewModel(ICustomerDataProvider customerDataProvider)
         {
             _customerDataProvider = customerDataProvider;
+            AddCommand = new DelegateCommand(Add);
+            DeleteCommand = new DelegateCommand(Delete, CanDelete);
+            MoveNavigationCommand = new DelegateCommand(MoveNavigation);
         }
 
         public ObservableCollection<CustomerItemViewModel> Customers { get; } = new();
@@ -30,9 +34,8 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
             set 
             { 
                 _selectedCustomer = value;
-                //RaisePropertyChanged(nameof(SelectedCustomer));
-                // because of CallerMemberName attribute, propertyName is passed with SelectedCustomer name
                 RaisePropertyChanged();
+                DeleteCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -45,6 +48,10 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
                 RaisePropertyChanged();
             }
         }
+
+        public DelegateCommand AddCommand { get; }
+        public DelegateCommand DeleteCommand { get; }
+        public DelegateCommand MoveNavigationCommand { get; }
 
         public async Task LoadAsync()
         {
@@ -63,7 +70,7 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
             }
         }
 
-        internal void Add()
+        private void Add(object? parameter)
         {
             var customer = new Customer { FirstName = "New" };
             var viewModel = new CustomerItemViewModel(customer);
@@ -71,7 +78,17 @@ namespace WiredBrainCoffee.CustomersApp.ViewModels
             SelectedCustomer = viewModel;
         }
 
-        internal void MoveNavigation()
+        private void Delete(object? parameter)
+        {
+            if(SelectedCustomer is not null)
+            {
+                Customers.Remove(SelectedCustomer);
+                SelectedCustomer = null;
+            }
+        }
+        private bool CanDelete(object? parameter) => SelectedCustomer is not null;
+
+        private void MoveNavigation(object? parameter)
         {
             NavigationSide = NavigationSide == NavigationSide.Left
                 ? NavigationSide.Right
