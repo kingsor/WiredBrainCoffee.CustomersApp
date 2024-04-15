@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:WiredBrainCoffee.CustomersApp"
         xmlns:controls="clr-namespace:WiredBrainCoffee.CustomersApp.Controls"
         xmlns:views="clr-namespace:WiredBrainCoffee.CustomersApp.Views"
+        xmlns:viewModels="clr-namespace:WiredBrainCoffee.CustomersApp.ViewModels"
         mc:Ignorable="d"
         Title="Customers App" Height="500" Width="800" FontSize="20">
     <Window.Resources>
-        <DataTemplate x:Key="CustomersViewModelTemplate">
+        <DataTemplate DataType="{x:Type viewModels:CustomersViewModel}">
             <views:CustomersView/>
         </DataTemplate>
     </Window.Resources>
@@ -34,8 +35,7 @@
         <controls:HeaderControl Grid.Row="1"/>
 
         <!-- Customers View -->
-        <ContentControl Grid.Row="2" Content="{Binding SelectedViewModel}"
-                        ContentTemplate="{StaticResource CustomersViewModelTemplate}"/>
+        <ContentControl Grid.Row="2" Content="{Binding SelectedViewModel}"/>
 
         <!-- Statusbar -->
         <StatusBar Grid.Row="3">
