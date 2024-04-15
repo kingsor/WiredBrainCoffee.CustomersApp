@@ -13,6 +13,9 @@
         <DataTemplate DataType="{x:Type viewModels:CustomersViewModel}">
             <views:CustomersView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:ProductsViewModel}">
+            <views:ProductsView/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
 
@@ -26,8 +29,12 @@
         <!-- Main menu -->
         <Menu Grid.Row="0" FontSize="20" >
             <MenuItem Header="_View">
-                <MenuItem Header="_Customers"/>
-                <MenuItem Header="_Products"/>
+                <MenuItem Header="_Customers"
+                          Command="{Binding SelectViewModelCommand}"
+                          CommandParameter="{Binding CustomersViewModel}" />
+                <MenuItem Header="_Products"
+                          Command="{Binding SelectViewModelCommand}"
+                          CommandParameter="{Binding ProductsViewModel}"/>
             </MenuItem>
         </Menu>
 
