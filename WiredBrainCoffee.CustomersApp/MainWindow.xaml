@@ -8,6 +8,11 @@
         xmlns:views="clr-namespace:WiredBrainCoffee.CustomersApp.Views"
         mc:Ignorable="d"
         Title="Customers App" Height="500" Width="800" FontSize="20">
+    <Window.Resources>
+        <DataTemplate x:Key="CustomersViewModelTemplate">
+            <views:CustomersView/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -29,7 +34,8 @@
         <controls:HeaderControl Grid.Row="1"/>
 
         <!-- Customers View -->
-        <views:CustomersView Grid.Row="2" DataContext="{Binding SelectedViewModel}"/>
+        <ContentControl Grid.Row="2" Content="{Binding SelectedViewModel}"
+                        ContentTemplate="{StaticResource CustomersViewModelTemplate}"/>
 
         <!-- Statusbar -->
         <StatusBar Grid.Row="3">
